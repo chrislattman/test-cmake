@@ -1,6 +1,16 @@
 #include <stdio.h>
-#include <dlfcn.h>
 #include <assert.h>
+
+#ifdef _WIN64
+#include <Windows.h>
+#define HANDLE_TYPE HMODULE
+#define dlsym GetProcAddress
+#define dlerror() "LoadLibrary or GetProcAddress error"
+#define dlclose FreeLibrary
+#else
+#include <dlfcn.h>
+#define HANDLE_TYPE void *
+#endif
 
 typedef struct fraction {
     int numerator, denominator;
@@ -8,16 +18,15 @@ typedef struct fraction {
 
 int main(void)
 {
-    void *handle;
+    HANDLE_TYPE handle;
     Fraction *(*fraction_init)(int, int);
     void (*fraction_free)(Fraction *);
     void (*fraction_multiply)(Fraction *, Fraction *);
     Fraction *frac1, *frac2;
     int f1_num, f1_denom, f2_num, f2_denom, prod_num, prod_denom;
 
-#ifdef __CYGWIN__
-    // The Win32 API equivalent of dlopen is LoadLibraryA
-    handle = dlopen("./libfraction.dll", RTLD_NOW);
+#ifdef _WIN64
+    handle = LoadLibraryA("./libfraction.dll");
 #elif __APPLE__
     handle = dlopen("./libfraction.dylib", RTLD_NOW);
 #else // __linux__ (additionally __ANDROID__ for Android)
@@ -28,7 +37,6 @@ int main(void)
         return 1;
     }
 
-    // The Win32 API equivalent of dlsym is GetProcAddress
     *(void **)(&fraction_init) = dlsym(handle, "fraction_init");
     if (fraction_init == NULL) {
         printf("%s\n", dlerror());
@@ -63,7 +71,6 @@ int main(void)
     fraction_free(frac1);
     fraction_free(frac2);
 
-    // The Win32 API equivalent of dlclose is FreeLibrary
     dlclose(handle);
     return 0;
 }
