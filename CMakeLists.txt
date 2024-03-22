@@ -22,3 +22,5 @@ elseif(LIB_MODE STREQUAL dl)
 else()
     add_executable(driver driver.c fraction.c frac_tester.c)
 endif()
+
+# another helpful function is target_include_headers()
