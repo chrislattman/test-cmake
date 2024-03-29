@@ -23,4 +23,7 @@ else()
     add_executable(driver driver.c fraction.c frac_tester.c)
 endif()
 
-# another helpful function is target_include_headers()
+# other helpful functions include:
+# target_include_directories()
+# target_link_directories()
+# target_compile_definitions()
