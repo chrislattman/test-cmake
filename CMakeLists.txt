@@ -13,15 +13,21 @@ function(libfraction)
 endfunction()
 
 if(LIB_MODE STREQUAL lib)
-    add_executable(driver driver.c frac_tester.c)
-    libfraction()
-    target_link_libraries(driver fraction)
+    message("lib")
 elseif(LIB_MODE STREQUAL dl)
-    add_executable(driver driverdl.c)
-    libfraction()
+    message("dl")
 else()
-    add_executable(driver driver.c fraction.c frac_tester.c)
+    message("unused")
 endif()
+
+libfraction()
+
+add_executable(driver driver.c fraction.c frac_tester.c)
+
+add_executable(driversl driver.c frac_tester.c)
+target_link_libraries(driversl fraction)
+
+add_executable(driverdl driverdl.c)
 
 # other helpful functions include:
 # target_include_directories()
