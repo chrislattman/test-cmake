@@ -13,20 +13,17 @@ cmake [-DCMAKE_BUILD_TYPE=Debug] [-DLIB_MODE=lib/dl] -S . -B build
 To build the project, run
 
 ```
-cmake --build build --target driver/driversl/driverdl
+cmake --build build [--target <driver|driversl|driverdl>]
 ```
 
+- If `--target` is not set, all targets will be built
 - Set `--target` to `driver` if you don't want a separate shared library
 - Set `--target` to `driversl` if you want the shared library to be compiled with the project
 - Set `--target` to `driverdl` if you want the shared library to be loaded at runtime
-- If `--target` is not set, all targets will be built
 - For MSVC, add `--config Release` to compile the project without debugging symbols (by default, debug builds are built)
 
 To run the executable:
 
 ```
-cd build
-./driver
+cmake --build build --target run-<driver|driversl|driverdl>
 ```
-
-- For MSVC, you may have to run `cd Debug` or `cd Release` after `cd build`

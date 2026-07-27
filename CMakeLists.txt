@@ -29,6 +29,21 @@ target_link_libraries(driversl fraction)
 
 add_executable(driverdl driverdl.c)
 
+add_custom_target(run-driver
+    COMMAND driver
+    DEPENDS driver
+)
+
+add_custom_target(run-driversl
+    COMMAND driversl
+    DEPENDS driversl
+)
+
+add_custom_target(run-driverdl
+    COMMAND driverdl
+    DEPENDS driverdl
+)
+
 # other helpful functions include:
 # target_include_directories()
 # target_link_directories()
