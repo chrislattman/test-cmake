@@ -22,9 +22,9 @@ endif()
 
 libfraction()
 
-add_executable(driver driver.c fraction.c frac_tester.c)
+add_executable(driver driver.c fraction.c)
 
-add_executable(driversl driver.c frac_tester.c)
+add_executable(driversl driver.c)
 target_link_libraries(driversl fraction)
 
 add_executable(driverdl driverdl.c)
@@ -44,7 +44,13 @@ add_custom_target(run-driverdl
     DEPENDS driverdl
 )
 
+enable_testing()
+add_library(tester frac_tester.c)
+add_executable(my_test_bin driver.c)
+target_link_libraries(my_test_bin fraction tester)
+target_compile_definitions(my_test_bin PUBLIC -DTEST)
+add_test(NAME testcase0 COMMAND my_test_bin)
+
 # other helpful functions include:
 # target_include_directories()
 # target_link_directories()
-# target_compile_definitions()

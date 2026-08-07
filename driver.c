@@ -27,6 +27,7 @@ int main(void)
     /**
      * Run the full test suite
      */
+#ifdef TEST
     test_fraction_init();
     test_fraction_free();
     test_fraction_add();
@@ -37,6 +38,7 @@ int main(void)
     test_fraction_negate();
     test_fraction_reduce();
     test_fraction_check_negatives();
+#endif
 
     return 0;
 }

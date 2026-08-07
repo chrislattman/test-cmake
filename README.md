@@ -27,3 +27,10 @@ To run the executable:
 ```
 cmake --build build --target run-<driver|driversl|driverdl>
 ```
+
+To run the test harness:
+
+```
+cd build
+ctest
+```
