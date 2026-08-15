@@ -48,7 +48,11 @@ enable_testing()
 add_library(tester frac_tester.c)
 add_executable(my_test_bin driver.c)
 target_link_libraries(my_test_bin fraction tester)
-target_compile_definitions(my_test_bin PUBLIC -DTEST)
+target_compile_definitions(my_test_bin PRIVATE -DTEST)
+# If my_test_bin were a library, the visibility identifier would be more important:
+# PRIVATE: specified compiler definitions are only enabled in this library
+# PUBLIC: specified compiler definitions are enabled in this library and anything that links this library
+# INTERFACE: specified compiler definitions are not enabled in this library, but enabled in anything that links this library
 add_test(NAME testcase0 COMMAND my_test_bin)
 
 # other helpful functions include:
