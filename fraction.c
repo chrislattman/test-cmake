@@ -48,7 +48,7 @@ void fraction_add(Fraction *frac1, Fraction *frac2)
 void fraction_subtract(Fraction *frac1, Fraction *frac2)
 {
     if (frac1 != NULL && frac2 != NULL) {
-        frac2->numerator *= -1;
+        fraction_negate(frac2);
         fraction_add(frac1, frac2);
     }
 }
