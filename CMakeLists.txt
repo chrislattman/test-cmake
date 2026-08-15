@@ -53,6 +53,13 @@ target_compile_definitions(my_test_bin PRIVATE -DTEST)
 # PRIVATE: specified compiler definitions are only enabled in this library
 # PUBLIC: specified compiler definitions are enabled in this library and anything that links this library
 # INTERFACE: specified compiler definitions are not enabled in this library, but enabled in anything that links this library
+#
+# If an entire dependency is only needed if some compiler definition is enabled (add -DMY_FEATURE=ON when generating the build system files):
+# option(MY_FEATURE "Enable my feature" OFF)
+# if(MY_FEATURE)
+#     target_link_libraries(my_app my_test_bin)
+#     target_compile_definitions(my_app PRIVATE MY_FEATURE)
+# endif()
 add_test(NAME testcase0 COMMAND my_test_bin)
 
 # other helpful functions include:
