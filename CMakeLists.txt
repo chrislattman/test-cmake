@@ -58,7 +58,7 @@ target_compile_definitions(my_test_bin PRIVATE -DTEST)
 # option(MY_FEATURE "Enable my feature" OFF)
 # if(MY_FEATURE)
 #     target_link_libraries(my_app my_test_bin)
-#     target_compile_definitions(my_app PRIVATE MY_FEATURE)
+#     target_compile_definitions(my_app PRIVATE -DMY_FEATURE)
 # endif()
 add_test(NAME testcase0 COMMAND my_test_bin)
 
