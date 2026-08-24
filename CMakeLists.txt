@@ -11,6 +11,7 @@ set(CMAKE_C_EXTENSIONS OFF)
 
 function(libfraction)
     add_library(fraction SHARED fraction.c)
+    target_compile_definitions(fraction PRIVATE -DMYLIB_BUILD)
 endfunction()
 
 if(LIB_MODE STREQUAL lib)

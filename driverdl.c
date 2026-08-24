@@ -26,7 +26,7 @@ int main(void)
     int f1_num, f1_denom, f2_num, f2_denom, prod_num, prod_denom;
 
 #ifdef _WIN64
-    handle = LoadLibraryA("./libfraction.dll");
+    handle = LoadLibraryA("fraction.dll");
 #elif __APPLE__
     handle = dlopen("./libfraction.dylib", RTLD_NOW);
 #else // __linux__ (additionally __ANDROID__ for Android)
