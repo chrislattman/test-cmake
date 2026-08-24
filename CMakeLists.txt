@@ -25,6 +25,7 @@ endif()
 libfraction()
 
 add_executable(driver driver.c fraction.c)
+target_compile_definitions(driver PRIVATE -DMYLIB_STATIC)
 
 add_executable(driversl driver.c)
 target_link_libraries(driversl fraction)

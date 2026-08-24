@@ -11,7 +11,9 @@
 #pragma once
 
 #ifdef _WIN32
-    #ifdef MYLIB_BUILD
+    #if defined(MYLIB_STATIC)
+        #define MYLIB_API
+    #elif defined(MYLIB_BUILD)
         #define MYLIB_API __declspec(dllexport)
     #else
         #define MYLIB_API __declspec(dllimport)
