@@ -32,5 +32,7 @@ To run the tests:
 
 ```
 cd build
-ctest
+ctest [-C Debug]
 ```
+
+- Add flag if using MSVC
