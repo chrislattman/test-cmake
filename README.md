@@ -6,7 +6,7 @@ To generate the build system files, run
 cmake [-DCMAKE_BUILD_TYPE=Debug] [-DLIB_MODE=lib/dl] -S . -B build
 ```
 
-- Set `CMAKE_BUILD_TYPE` to `Debug` if you want the project compiled for debugging purposes
+- Set `CMAKE_BUILD_TYPE` to `Debug` if you want the project compiled for debugging purposes (doesn't apply to MSVC)
 - Set `LIB_MODE` to `lib` if you want to test the if-else-if-else statement
 - Set `LIB_MODE` to `dl` if you want to test the if-else-if-else statement
 
