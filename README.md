@@ -3,7 +3,10 @@
 To generate the build system files, run
 
 ```
-cmake [-DCMAKE_BUILD_TYPE=Debug] [-DCMAKE_C_COMPILER=clang | -T ClangCL] [-DLIB_MODE=lib/dl] -S . -B build
+cmake [-DCMAKE_BUILD_TYPE=Debug] \
+    [-DCMAKE_C_COMPILER=clang | -T ClangCL] \
+    [-DLIB_MODE=lib/dl] \
+    -S . -B build
 ```
 
 - Set `CMAKE_BUILD_TYPE` to `Debug` if you want the project compiled for debugging purposes (doesn't apply to MSVC)
