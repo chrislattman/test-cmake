@@ -3,10 +3,12 @@
 To generate the build system files, run
 
 ```
-cmake [-DCMAKE_BUILD_TYPE=Debug] [-DLIB_MODE=lib/dl] -S . -B build
+cmake [-DCMAKE_BUILD_TYPE=Debug] [-DCMAKE_C_COMPILER=clang | -T ClangCL] [-DLIB_MODE=lib/dl] -S . -B build
 ```
 
 - Set `CMAKE_BUILD_TYPE` to `Debug` if you want the project compiled for debugging purposes (doesn't apply to MSVC)
+- Set `CMAKE_C_COMPILER` to `clang` if you want to use Clang/LLVM instead of GCC (doesn't apply to MSVC)
+- For MSVC, add `-T ClangCL` if you want to use Clang/LLVM instead of MSVC
 - Set `LIB_MODE` to `lib` if you want to test the if-else-if-else statement
 - Set `LIB_MODE` to `dl` if you want to test the if-else-if-else statement
 
