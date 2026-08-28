@@ -36,8 +36,7 @@ cmake --build build --target run-<driver|driversl|driverdl>
 To run the tests:
 
 ```
-cd build
-ctest [-C Debug]
+ctest --test-dir build [-C Debug]
 ```
 
-- Add flag if using MSVC
+- Add `-C` flag if using MSVC

@@ -53,14 +53,9 @@ else()
 endif()
 
 enable_testing()
-add_library(tester frac_tester.c)
-target_link_libraries(tester PRIVATE asan_options)
-add_library(fraction_asan fraction.c)
-target_compile_definitions(fraction_asan PRIVATE -DMYLIB_STATIC)
-target_link_libraries(fraction_asan PRIVATE asan_options)
-add_executable(my_test_bin driver.c)
-target_link_libraries(my_test_bin fraction_asan tester asan_options)
-target_compile_definitions(my_test_bin PRIVATE -DTEST)
+add_executable(my_test_bin driver.c frac_tester.c fraction.c)
+target_link_libraries(my_test_bin asan_options)
+target_compile_definitions(my_test_bin PRIVATE -DTEST -DMYLIB_STATIC)
 # If my_test_bin were a library, the visibility identifier would be more important:
 # PRIVATE: specified compiler definitions are only enabled in this library
 # PUBLIC: specified compiler definitions are enabled in this library and anything that links this library
