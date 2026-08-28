@@ -44,9 +44,25 @@ add_custom_target(run-driverdl
 )
 
 add_library(asan_options INTERFACE)
-if(WIN32)
+if(MSVC)
     target_compile_options(asan_options INTERFACE /fsanitize=address /Zi)
-    target_link_options(asan_options INTERFACE /fsanitize=address)
+    if(CMAKE_C_COMPILER_ID MATCHES "Clang")
+        execute_process(
+            COMMAND ${CMAKE_C_COMPILER} /clang:-print-file-name=clang_rt.asan_dynamic-x86_64.lib
+            OUTPUT_VARIABLE ASAN_DLL_LIB
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+        execute_process(
+            COMMAND ${CMAKE_C_COMPILER} /clang:-print-file-name=clang_rt.asan_dynamic_runtime_thunk-x86_64.lib
+            OUTPUT_VARIABLE ASAN_THUNK_LIB
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+        if(EXISTS "${ASAN_DLL_LIB}" AND EXISTS ${ASAN_THUNK_LIB})
+            target_link_libraries(asan_options INTERFACE "${ASAN_DLL_LIB}" "-wholearchive:${ASAN_THUNK_LIB}")
+        endif()
+    else()
+        target_link_options(asan_options INTERFACE /INCREMENTAL:NO)
+    endif()
 else()
     target_compile_options(asan_options INTERFACE -fsanitize=address -fno-omit-frame-pointer -g)
     target_link_options(asan_options INTERFACE -fsanitize=address)
@@ -56,6 +72,9 @@ enable_testing()
 add_executable(my_test_bin driver.c frac_tester.c fraction.c)
 target_link_libraries(my_test_bin asan_options)
 target_compile_definitions(my_test_bin PRIVATE -DTEST -DMYLIB_STATIC)
+if(MSVC AND CMAKE_C_COMPILER_ID MATCHES "Clang")
+    set_property(TARGET my_test_bin PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
+endif()
 # If my_test_bin were a library, the visibility identifier would be more important:
 # PRIVATE: specified compiler definitions are only enabled in this library
 # PUBLIC: specified compiler definitions are enabled in this library and anything that links this library
