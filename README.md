@@ -40,3 +40,15 @@ ctest --test-dir build [-C Debug]
 ```
 
 - Add `-C` flag if using MSVC
+
+To create a distributable .deb file:
+
+```
+cd build
+cpack
+```
+
+- This method also work for .rpm files (but requires extra tools installed)
+- On Linux, you'll also see .AppImage files distributed, which are run directly and not installed on the system
+- On macOS, .dmg files are used to distribute installable software (in the form of .app applications)
+- On Windows, .exe files built with NSIS come with install wizards

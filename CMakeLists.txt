@@ -88,6 +88,16 @@ endif()
 # endif()
 add_test(NAME testcase0 COMMAND my_test_bin)
 
+if(LINUX)
+    set(CPACK_GENERATOR "DEB")
+    set(CPACK_PACKAGE_NAME "driver")
+    set(CPACK_PACKAGE_VERSION "0.1.0")
+    set(CPACK_PACKAGE_CONTACT "Chris Lattman <developer@example.com>")
+    set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+    # set(CPACK_DEBIAN_PACKAGE_DEPENDS "libssl-dev (>= 3.0.0)")
+    include(CPack)
+endif()
+
 # other helpful functions include:
 # target_include_directories()
 # target_link_directories()
